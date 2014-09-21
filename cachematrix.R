@@ -1,11 +1,10 @@
 ## Functions for creating and using inverted matrices which caching ability
 
-
 ## Create cacheable matrix for input
 makeCacheMatrix <- function(original.matrix = matrix()) {
   
   if (!is.matrix(original.matrix)) {
-    stop("Please give a matrix")
+    stop("Please set matrix.")
   }
   
   inverted.matrix <- NULL
@@ -17,7 +16,8 @@ makeCacheMatrix <- function(original.matrix = matrix()) {
   
   # Functions for getting and setting cached inv. matrix value
   get <- function() original.matrix
-  # Inversing the matrix using build in solve() function in R
+
+  # use solve on inverted matrix
   set.inverse <- function(solve) inverted.matrix <<- solve
   get.inverse <- function() inverted.matrix
   
@@ -25,18 +25,16 @@ makeCacheMatrix <- function(original.matrix = matrix()) {
     set = set, 
     get = get,
     set.inverse = set.inverse,
-    get.inverse = get.inverse)
-  
+    get.inverse = get.inverse)  
 }
 
-
 ## get inverse of the cacheable matrix returned by makeCacheMatrix()
-
 cacheSolve <- function(cacheable.matrix, ...) {
   inverted.matrix <- cacheable.matrix$get.inverse()
   
+  # if matrix is null, get inverted matrix
   if(!is.null(inverted.matrix)) {
-    message("Getting cached inverse matrix")
+    message("Getting inverse matrix")
     return(inverted.matrix)
   }
   
